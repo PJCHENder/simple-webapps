@@ -13,9 +13,9 @@ const debug = require('debug')('inspect')
 // Redirect to ./index.html for SPA
 const history = require('connect-history-api-fallback')
 
-// routes
+// routes module
 const index = require('./routes/index')
-const users = require('./routes/users')
+const api = require('./routes/v1.0/')
 
 const app = express()
 
@@ -31,15 +31,17 @@ app.use(logger('dev'))
 app.use(cookieParser())
 app.use('/static', express.static(path.join(__dirname, 'static')))
 
-// routes
-
-
+/**
+ * routes
+**/
 app.use(history({
   index: '/',
   logger: debug.bind(console)
 }))
 app.use('/', index)
-app.use('/users', users)
+
+// 所有 /v1.0/ 都會進入 api 這支路由
+app.use('/v1.0/', api)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -48,7 +50,9 @@ app.use(function (req, res, next) {
   next(err)
 })
 
-// error handler
+/**
+ * error handler
+**/
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message
@@ -56,7 +60,10 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error')
+  res.json({
+    status: err.status,
+    message: err.message
+  })
 })
 
 module.exports = app
