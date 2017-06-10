@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
-const FacebookStrategy = require('passport-facebook').Strategy
+// const FacebookStrategy = require('passport-facebook').Strategy
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
-const Model = require('../../models')
+// const Model = require('../../models')
 
 
 // POST /v1.0/users/
@@ -62,8 +62,6 @@ router.post('/auth/facebook/callback',
     })(req, res, next)
   }
 )
-
-
 
 //  POST /v1.0/users/register
 router.post('/register', jsonParser, function (req, res, next) {
