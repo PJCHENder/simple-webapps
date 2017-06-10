@@ -1,14 +1,95 @@
-doctype html
 html
   head
     meta(charset='utf-8')
     title simple-webapps-spa
-    link(href='/static/css/app.b0c1a26accf71f38cc3cef12356e7279.css', rel='stylesheet')
+    link(href='/static/css/app.1ac3e66242c8d739157616364084ee44.css', rel='stylesheet')
   body
     #app
-    script(type='text/javascript', src='/static/js/manifest.3871971042e6a4cc75b9.js')
-    script(type='text/javascript', src='/static/js/vendor.671c3f53456a5597b5d1.js')
-    script(type='text/javascript', src='/static/js/app.cd9cd3e2462eb2bb9527.js')
+    
+    script(type='text/javascript', src='/static/js/manifest.8bb7ba5cd512be1339df.js')
+    script(type='text/javascript', src='/static/js/vendor.b4bfef217a790d39aeef.js')
+    script(type='text/javascript', src='/static/js/app.e5786e7b3e988224ebb6.js')
+    script.
+      // This is called with the results from from FB.getLoginStatus().
+      function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+          // Logged into your app and Facebook.
+          testAPI();
+        } else {
+          // The person is not logged into your app or we are unable to tell.
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        }
+      }
+
+      // This function is called when someone finishes with the Login
+      // Button.  See the onlogin handler attached to it in the sample
+      // code below.
+      function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      }
+
+      window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '{your-app-id}',
+        cookie     : true,  // enable cookies to allow the server to access 
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.8' // use graph api version 2.8
+      });
+
+      // Now that we've initialized the JavaScript SDK, we call 
+      // FB.getLoginStatus().  This function gets the state of the
+      // person visiting this page and can return one of three states to
+      // the callback you provide.  They can be:
+      //
+      // 1. Logged into your app ('connected')
+      // 2. Logged into Facebook, but not your app ('not_authorized')
+      // 3. Not logged into Facebook and can't tell if they are logged into
+      //    your app or not.
+      //
+      // These three cases are handled in the callback function.
+
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+
+      };
+
+      // Load the SDK asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      // Here we run a very simple test of the Graph API after login is
+      // successful.  See statusChangeCallback() for when this call is made.
+      function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+          console.log('Successful login for: ' + response.name);
+          document.getElementById('status').innerHTML =
+            'Thanks for logging in, ' + response.name + '!';
+        });
+      }
+    fb:login-button(scope='public_profile,email', onlogin='checkLoginState();')
+    #status
+    .fb-login-button(data-max-rows='1', data-size='large', data-button-type='continue_with', data-show-faces='false', data-auto-logout-link='false', data-use-continue-as='false')
+
+
+
+
 
 
 //- 

@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
+const FacebookStrategy = require('passport-facebook').Strategy
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const Model = require('../../models')
@@ -11,6 +13,56 @@ router.post('/', (req, res, next) => {
     status: 'get POST'
   })
 })
+
+// POST /v1.0/users/auth/facebook
+router.post('/auth/facebook', function (req, res, next) {
+  passport.authenticate('facebook', function (err, user, info) {
+    if (err) {
+      err = new Error('Authentication Error')
+      err.status = 409
+      return next(err)
+    }
+
+    if (!user) {
+      err = new Error(info)
+      err.status = 409
+      return next(err)
+    }
+
+    // req.login(user, function (err) {
+    //   if (err) return next(err)
+    //   console.log('User account created successfully')
+    //   req.session.userId = user._id
+    //   return res.redirect('/profile')
+    // })
+  })(req, res, next)
+})
+
+router.post('/auth/facebook/callback',
+  function (req, res, next) {
+    passport.authenticate('facebook', function (err, user, info) {
+      if (err) {
+        err = new Error('Singup Error')
+        err.status = 409
+        return next(err)
+      }
+
+      if (!user) {
+        err = new Error(info)
+        err.status = 409
+        return next(err)
+      }
+
+      req.login(user, function (err) {
+        if (err) return next(err)
+        console.log('User account created successfully')
+        req.session.userId = user._id
+        return res.redirect('/')
+      })
+    })(req, res, next)
+  }
+)
+
 
 
 //  POST /v1.0/users/register
