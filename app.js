@@ -13,7 +13,7 @@ const debug = require('debug')('inspect')
  * middleware
 **/
 const history = require('connect-history-api-fallback')
-const passport = require('./middlewares/passport')
+// const passport = require('./middlewares/passport')
 
 // routes module
 const index = require('./routes/index')
@@ -33,8 +33,8 @@ app.use(logger('dev'))
 app.use(cookieParser())
 app.use('/static', express.static(path.join(__dirname, 'static')))
 
-app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.initialize())
+// app.use(passport.session())
 
 /**
  * routes
