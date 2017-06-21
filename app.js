@@ -5,15 +5,16 @@ const express = require('express')
 const path = require('path')
 const favicon = require('serve-favicon')
 const logger = require('morgan')
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const debug = require('debug')('inspect')
+const dotenv = require('dotenv').config()
 
 /**
  * middleware
 **/
 const history = require('connect-history-api-fallback')
-// const passport = require('./middlewares/passport')
+const passport = require('./middlewares/passport')
 
 // routes module
 const index = require('./routes/index')
@@ -21,19 +22,22 @@ const api = require('./routes/v1.0/')
 
 const app = express()
 
-
-// 設定 view engine 和模版路徑
+/**
+ * view engine
+ */
 app.set('view engine', 'pug')
 app.set('views', path.join('./views'))
 
+/**
+ * middleware
+ */
 
-// middleware
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(cookieParser())
 app.use('/static', express.static(path.join(__dirname, 'static')))
 
-// app.use(passport.initialize())
+app.use(passport.initialize())
 // app.use(passport.session())
 
 /**
