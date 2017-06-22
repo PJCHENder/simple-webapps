@@ -11,7 +11,7 @@ var PaletteSchema = new Schema({
       //     return uuid.v4()
       //   }
       // },
-      comment: {
+      name: {
         type: String,
         default: null
       },

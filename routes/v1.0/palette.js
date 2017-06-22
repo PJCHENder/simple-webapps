@@ -30,6 +30,13 @@ router.get('/', jsonParser, (req, res, next) => {
         return next(err)
       }
 
+      // 如果找不到 palette
+      if (!palette) {
+        return res.status(200).json({
+          message: 'Could not find the palette. Please create palette first.'
+        })
+      }
+
       return res.status(200).json({
         message: 'get Palette',
         colors: palette.colors
@@ -60,7 +67,7 @@ router.post('/', jsonParser, (req, res, next) => {
       if (err) {
         return next(err)
       }
-      
+
       if (!palette) {
         // 如果找不使用者的色票，則在資料庫中建立新的色票檔
         let newPalettes = new Model.Palette({
@@ -127,13 +134,13 @@ router.put('/', jsonParser, (req, res, next) => {
           }
 
           return res.status(200).json({
-            message: 'Palette Save Successfully',
+            message: 'Palette save successfully',
             palette
           })
         })
       } else {
         return res.status(200).json({
-          message: 'Wrong Format of colors'
+          message: 'Wrong format of colors'
         })
       }
     })
