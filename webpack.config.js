@@ -3,7 +3,6 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const extractCSS = new ExtractTextPlugin('stylesheets/application.css')
 
-
 function resolve (dir) {
   return path.join(__dirname, dir)
 }

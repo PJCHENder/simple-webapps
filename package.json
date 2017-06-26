@@ -4,7 +4,9 @@
   "description": "simple apps makes simple life",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "cross-env NODE_ENV=production nodemon ./bin/www",
+    "dev": "cross-env NODE_ENV=development nodemon ./bin/www",
+    "prestart": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "PJCHENder",
