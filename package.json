@@ -4,7 +4,7 @@
   "description": "simple apps makes simple life",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=inspect,dev:server,model nodemon ./bin/www",
+    "start": "nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "PJCHENder",
