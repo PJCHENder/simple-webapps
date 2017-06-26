@@ -9,6 +9,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const debug = require('debug')('inspect')
 const dotenv = require('dotenv').config()
+const cors = require('cors')
 
 /**
  * middleware
@@ -21,6 +22,9 @@ const index = require('./routes/index')
 const api = require('./routes/v1.0/')
 
 const app = express()
+
+// NOTICE: allow cors for all website for develope
+// app.use(cors())
 
 /**
  * view engine

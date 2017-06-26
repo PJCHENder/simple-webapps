@@ -39,8 +39,8 @@ router.post('/login', jsonParser, (req, res, next) => {
           // 如果使用者存在（曾經登入過)
           let token = giveMeToken(user)
           res.status(200).json({
-            status: 'Login Successful',
-            message: 'User has been created',
+            status: 200,
+            message: 'Login Successful: User has been created',
             token
           })
         } else {
@@ -55,8 +55,8 @@ router.post('/login', jsonParser, (req, res, next) => {
               return next(err)
             }
             res.status(200).json({
-              status: 'Login Successful',
-              message: 'Create New User',
+              status: 200,
+              message: 'Login Successful: Create New User',
               token,
               info: user
             })
@@ -65,7 +65,8 @@ router.post('/login', jsonParser, (req, res, next) => {
       })
     } else {
       res.status(200).json({
-        status: 'Facebook Login Failed',
+        status: 400,
+        message: 'Facebook Login Failed',
         facebookResponse
       })
     }

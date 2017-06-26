@@ -18,6 +18,7 @@ router.get('/', jsonParser, (req, res, next) => {
     // 如果找不到使用者
     if (!user) {
       return res.status(401).json({
+        status: 401,
         message: info.message
       })
     }
@@ -33,13 +34,16 @@ router.get('/', jsonParser, (req, res, next) => {
       // 如果找不到 palette
       if (!palette) {
         return res.status(200).json({
+          status: 400,
           message: 'Could not find the palette. Please create palette first.'
         })
       }
 
       return res.status(200).json({
+        status: 200,
         message: 'get Palette',
-        colors: palette.colors
+        colors: palette.colors,
+        updated_at: palette.updated_at
       })
     })
   })(req, res, next)/* /custom Passport Response */
@@ -57,6 +61,7 @@ router.post('/', jsonParser, (req, res, next) => {
     // 如果找不到使用者
     if (!user) {
       return res.status(401).json({
+        status: 400,
         message: info.message
       })
     }
@@ -81,6 +86,7 @@ router.post('/', jsonParser, (req, res, next) => {
           }
 
           res.status(200).json({
+            status: 200,
             message: 'Create New Palette',
             newPalette
           })
@@ -88,6 +94,7 @@ router.post('/', jsonParser, (req, res, next) => {
       } else {
         // 如果使用者色票檔已存在
         return res.status(200).json({
+          status: 200,
           message: 'Palette Already Exists',
           palette
         })
@@ -108,6 +115,7 @@ router.put('/', jsonParser, (req, res, next) => {
     // 如果找不到使用者
     if (!user) {
       return res.status(401).json({
+        status: 401,
         message: info.message
       })
     }
@@ -120,6 +128,7 @@ router.put('/', jsonParser, (req, res, next) => {
       // 找到使用者，但色票檔尚未建立
       if (!palette) {
         return res.status(200).json({
+          status: 400,
           message: 'Palette not created yet'
         })
       }
@@ -134,12 +143,15 @@ router.put('/', jsonParser, (req, res, next) => {
           }
 
           return res.status(200).json({
+            status: 200,
             message: 'Palette save successfully',
+            updated_at: palette.updated_at,
             palette
           })
         })
       } else {
         return res.status(200).json({
+          status: 400,
           message: 'Wrong format of colors'
         })
       }
