@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router({mergeParams: true})
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const passport = require('passport')
