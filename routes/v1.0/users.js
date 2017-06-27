@@ -21,7 +21,6 @@ router.post('/login', jsonParser, (req, res, next) => {
     if (error) {
       next(error)
     }
-
     let facebookResponse = JSON.parse(response.text)
 
     if (facebookResponse.data.is_valid) {
