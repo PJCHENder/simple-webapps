@@ -24,7 +24,11 @@ const api = require('./routes/v1.0/')
 const app = express()
 
 // NOTICE: allow cors for all website for develope
-// app.use(cors())
+
+if (process.NODE_ENV !== 'production') {
+  console.warn('allowed cors')
+  app.use(cors())
+}
 
 /**
  * view engine
