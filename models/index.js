@@ -3,6 +3,7 @@ const connectionString = require('../config/database')[process.env.NODE_ENV || '
 
 const User = require('./user')
 const Palette = require('./palette')
+const Note = require('./note')
 const debug = require('debug')('model')
 
 // Fix mongoose Promise issue
@@ -23,5 +24,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 module.exports = {
   User,
-  Palette
+  Palette,
+  Note
 }
