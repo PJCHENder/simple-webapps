@@ -7,8 +7,9 @@ const lineConfig = require('../../config/line')
 // const passport = require('passport')
 // const Model = require('../../models')
 
-// POST /v1.0/users/linebot/webhook
+// POST /v1.0/linebot/webhook
 router.post('/webhook', line.middleware(lineConfig), (req, res) => {
+  console.log('req', req)
   Promise
     .all(req.body.events.map(handleEvent))
     .then((result) => {
