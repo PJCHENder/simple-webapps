@@ -1,6 +1,6 @@
 {
   "name": "simple-webapps",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "simple apps makes simple life",
   "main": "index.js",
   "scripts": {
