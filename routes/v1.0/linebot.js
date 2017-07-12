@@ -9,7 +9,7 @@ const lineConfig = require('../../config/line')
 
 // POST /v1.0/linebot/webhook
 router.post('/webhook', line.middleware(lineConfig), (req, res) => {
-  console.log('req', req)
+  console.log('req.body', req.body)
   Promise
     .all(req.body.events.map(handleEvent))
     .then((result) => {
