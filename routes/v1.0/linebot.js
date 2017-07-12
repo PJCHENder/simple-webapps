@@ -8,7 +8,6 @@ const lineConfig = require('../../config/line')
 // const Model = require('../../models')
 
 // POST /v1.0/users/linebot/webhook
-
 router.post('/webhook', line.middleware(lineConfig), (req, res) => {
   Promise
     .all(req.body.events.map(handleEvent))
