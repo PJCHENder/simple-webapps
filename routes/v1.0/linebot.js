@@ -1,35 +1,47 @@
 const express = require('express')
 const router = express.Router({mergeParams: true})
-// const bodyParser = require('body-parser')
-// const jsonParser = bodyParser.json()
-const line = require('@line/bot-sdk')
+const linebot = require('linebot')
+const cron = require('node-cron')
 const lineConfig = require('../../config/line')
-// const passport = require('passport')
-// const Model = require('../../models')
 
-// POST /v1.0/linebot/webhook
-router.post('/webhook', line.middleware(lineConfig), (req, res) => {
-  console.log('req.body', req.body)
-  Promise
-    .all(req.body.events.map(handleEvent))
-    .then((result) => {
-      console.log('result', result)
-      res.json(result)
-    })
+const bot = linebot(lineConfig)
+const linebotParser = bot.parser()
+
+
+/**
+ * Line Bot Listener
+ */
+bot.on('message', function (event) {
+  console.log('event', event)
+  event.reply(event.message.text).then(function (data) {
+    // success
+  }).catch(function (error) {
+    // error
+    console.error('error on message', error)
+  })
 })
 
-const client = new line.Client(lineConfig)
+let task = cron.schedule('50,55 1,5,9,13,17,21 * * *', function () {
+  bot.push('U14a11d23e77aaad34a5e9893f0570223', `該動起來了${new Date()}`)
+  console.log('running a task', new Date())
+}, true)
 
-function handleEvent (event) {
-  console.log('event', event)
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    return Promise.resolve(null)
+// POST /v1.0/linebot/webhook
+router.post('/webhook', linebotParser)
+
+let isTaskStart = true
+
+// GET /v1.0/linebot/
+router.get('/', (req, res, next) => {
+  if (isTaskStart) {
+    task.stop()
+    bot.push('U14a11d23e77aaad34a5e9893f0570223', 'Task Stop')
+  } else {
+    task.start()
+    bot.push('U14a11d23e77aaad34a5e9893f0570223', 'Task Start')
   }
 
-  return client.replyMessage(event.replyToken, {
-    type: 'text',
-    text: event.message.text
-  })
-}
+  return res.status(200).json({status: 200, message: `isTaskStart: ${isTaskStart}`, time: new Date()})
+})
 
 module.exports = router

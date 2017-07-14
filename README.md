@@ -110,3 +110,9 @@ nodemon app.js
 // app.js
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 ```
+
+### linebot
+
+可以用來串接 line bot 的套件 
+
+- [linebot](https://www.npmjs.com/package/linebot) @ npm
