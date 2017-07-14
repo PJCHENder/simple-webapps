@@ -18,7 +18,7 @@ bot.on('message', function (event) {
       bot.push('U14a11d23e77aaad34a5e9893f0570223', 'Task Start')
     }).catch(function (error) {
       // error
-      console.error('error on message', error)
+      console.error('error', error)
     })
   } else if (event.message.text === '結束') {
     event.reply('停止打怪').then(function (data) {
@@ -27,12 +27,19 @@ bot.on('message', function (event) {
       bot.push('U14a11d23e77aaad34a5e9893f0570223', 'Task Stop')
     }).catch(function (error) {
       // error
-      console.error('error on message', error)
+      console.error('error', error)
+    })
+  } else {
+    event.reply('我還不理解').then(function (data) {
+    // success
+    }).catch(function (error) {
+      // error
+      console.error('error', error)
     })
   }
 })
 
-let task = cron.schedule('35,40,45,50,55 1,5,9,13,17,21 * * *', function () {
+let task = cron.schedule('35-45,50,55 1,5,9,13,17,21 * * *', function () {
   bot.push('U14a11d23e77aaad34a5e9893f0570223', `該動起來了${new Date()}`)
   console.log('running a task', new Date())
 }, true)
