@@ -11,26 +11,26 @@ const linebotParser = bot.parser()
  * Line Bot Listener
  */
 bot.on('message', function (event) {
-  if (event.message.text === '開始') {
-    event.reply('開始打怪').then(function (data) {
+  if (event.message.text === '開始打怪') {
+    event.reply('收到').then(function (data) {
       // success
       task.start()
-      bot.push('U14a11d23e77aaad34a5e9893f0570223', 'Task Start')
+      bot.push('U14a11d23e77aaad34a5e9893f0570223', '微寶出任務')
     }).catch(function (error) {
       // error
       console.error('error', error)
     })
-  } else if (event.message.text === '結束') {
-    event.reply('停止打怪').then(function (data) {
+  } else if (event.message.text === '停止打怪') {
+    event.reply('收到').then(function (data) {
     // success
       task.stop()
-      bot.push('U14a11d23e77aaad34a5e9893f0570223', 'Task Stop')
+      bot.push('U14a11d23e77aaad34a5e9893f0570223', '微寶結束任務')
     }).catch(function (error) {
       // error
       console.error('error', error)
     })
   } else {
-    event.reply('我還不理解').then(function (data) {
+    event.reply('這我不理解').then(function (data) {
     // success
     }).catch(function (error) {
       // error
@@ -39,8 +39,8 @@ bot.on('message', function (event) {
   }
 })
 
-let task = cron.schedule('35-45,50,55 1,5,9,13,17,21 * * *', function () {
-  bot.push('U14a11d23e77aaad34a5e9893f0570223', `該動起來了${new Date()}`)
+let task = cron.schedule('50,55,59 1,5,9,13,17,21 * * *', function () {
+  bot.push('U14a11d23e77aaad34a5e9893f0570223', '該動起來了')
   console.log('running a task', new Date())
 }, true)
 
