@@ -29,7 +29,7 @@ const replyMessage = {
  * cron task
  */
 let task = cron.schedule('50 1,5,9,13,17,21 * * *', function () {
-  bot.push(groupId.lineage, '該動起來了')
+  bot.push(groupId.lineage, '打王的時間到了')
   console.log('running a task', new Date())
 }, true)
 
@@ -59,6 +59,8 @@ bot.on('message', function (event) {
         bot.push(groupId.lineage, replyMessage.lineage.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
       } else if (contains(event.message.text, ['wavbo', '微寶'])) {
         bot.push(groupId.lineage, replyMessage.wavbo.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
+      } else if (contains(event.message.txt, ['紅寶'])) {
+        bot.push(groupId.lineage, '買喔買喔')
       }
     } else if (event.message.type === 'image') {
       bot.push(groupId.lineage, replyMessage.lineage.image[Math.floor(Math.random() * replyMessage.lineage.image.length)])
