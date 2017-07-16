@@ -60,7 +60,7 @@ bot.on('message', function (event) {
       } else if (contains(event.message.text, ['wavbo', '微寶'])) {
         bot.push(groupId.lineage, replyMessage.wavbo.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
       } else if (contains(event.message.txt, ['紅寶'])) {
-        bot.push(groupId.lineage, '買喔買喔')
+        bot.push(groupId.lineage, '早買早享受，晚買沒折扣')
       }
     } else if (event.message.type === 'image') {
       bot.push(groupId.lineage, replyMessage.lineage.image[Math.floor(Math.random() * replyMessage.lineage.image.length)])
