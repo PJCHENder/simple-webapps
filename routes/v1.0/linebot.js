@@ -16,6 +16,9 @@ const userId = {
 }
 
 const replyMessage = {
+  wavbo: {
+    text: ['安安', '我在這']
+  },
   lineage: {
     image: ['唉唷，不錯嘛～', '阿不就好棒棒', '下次會更好', '非洲人了你', '你這個小白臉'],
     text: ['放開那個女孩', '歡迎非洲族長', '記得補防曬', 'PK阿！']
@@ -25,7 +28,7 @@ const replyMessage = {
 /**
  * cron task
  */
-let task = cron.schedule('45,50,55,59 1,5,9,13,17,21 * * *', function () {
+let task = cron.schedule('50 1,5,9,13,17,21 * * *', function () {
   bot.push(groupId.lineage, '該動起來了')
   console.log('running a task', new Date())
 }, true)
@@ -54,6 +57,8 @@ bot.on('message', function (event) {
         })
       } else if (contains(event.message.text, ['琳娜', '一邊一國', '霜刃'])) {
         bot.push(groupId.lineage, replyMessage.lineage.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
+      } else if (contains(event.message.text, ['wavbo', '微寶'])) {
+        bot.push(groupId.lineage, replyMessage.wavbo.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
       }
     } else if (event.message.type === 'image') {
       bot.push(groupId.lineage, replyMessage.lineage.image[Math.floor(Math.random() * replyMessage.lineage.image.length)])
