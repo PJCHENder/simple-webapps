@@ -38,14 +38,14 @@ bot.on('message', function (event) {
   if (event.source.groupId === groupId.lineage) {
     // For text message
     if (event.message.type === 'text') {
-      if (event.message.text === '微寶覺醒') {
+      if (event.message.text === '微寶覺醒' || event.message.text === 'wavbo run start') {
         event.reply('收到').then(function (data) {
           task.start()
           bot.push(groupId.lineage, '微寶出任務')
         }).catch(function (error) {
           console.error('error', error)
         })
-      } else if (event.message.text === '微寶睡覺') {
+      } else if (event.message.text === '微寶睡覺' || event.message.text === 'wavbo run sleep') {
         event.reply('收到').then(function (data) {
           task.stop()
           bot.push(groupId.lineage, '微寶結束任務')
