@@ -17,11 +17,11 @@ const userId = {
 
 const replyMessage = {
   wavbo: {
-    text: ['安安', '我在這']
+    text: ['安安', '我在這', '不要怕，有我在', '不怕別人阻擋，只怕自己投降']
   },
   lineage: {
-    image: ['唉唷，不錯嘛～', '阿不就好棒棒', '下次會更好', '非洲人了你', '你這個小白臉'],
-    text: ['放開那個女孩', '歡迎非洲族長', '記得補防曬', 'PK阿！']
+    image: ['唉唷，不錯嘛～', '阿不就好棒棒', '下次會更好', '非洲人了你', '這個小白臉'],
+    text: ['放開那個女孩', '歡迎非洲族長', '記得補防曬', 'PK阿！', '沒人舉手是吧，那我點名了']
   }
 }
 
@@ -37,31 +37,45 @@ let task = cron.schedule('50 1,5,9,13,17,21 * * *', function () {
  * Line Bot Listener
  */
 bot.on('message', function (event) {
+  let textMessage = event.message.text
+
   // For lineage group
   if (event.source.groupId === groupId.lineage) {
     // For text message
     if (event.message.type === 'text') {
-      if (event.message.text === '微寶覺醒' || event.message.text === 'wavbo run start') {
-        event.reply('收到').then(function (data) {
+
+      if (isFound(textMessage, ['微寶覺醒', '微寶起床', 'wavbo run start'])) {
+         event.reply('收到').then(function (data) {
           task.start()
           bot.push(groupId.lineage, '微寶出任務')
         }).catch(function (error) {
           console.error('error', error)
         })
-      } else if (event.message.text === '微寶睡覺' || event.message.text === 'wavbo run sleep') {
+      } else if (isFound(textMessage, ['微寶睡覺', 'wavbo run sleep', 'wavbo run stop'])) {
         event.reply('收到').then(function (data) {
           task.stop()
-          bot.push(groupId.lineage, '微寶結束任務')
+          bot.push(groupId.lineage, '微寶結束任務，大家晚安')
         }).catch(function (error) {
           console.error('error', error)
         })
-      } else if (contains(event.message.text, ['琳娜', '一邊一國', '霜刃'])) {
+      }
+      
+      if (isFound(textMessage, ['琳娜', '一邊一國', '霜刃'])) {
         bot.push(groupId.lineage, replyMessage.lineage.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
-      } else if (contains(event.message.text, ['wavbo', '微寶'])) {
+      }
+
+      if (isFound(textMessage, ['wavbo', '微寶'])) {
         bot.push(groupId.lineage, replyMessage.wavbo.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
-      } else if (contains(event.message.txt, ['紅寶'])) {
+      }
+      
+      if (isFound(textMessage, ['紅寶', '藍鑽', '鑽石'])) {
         bot.push(groupId.lineage, '早買早享受，晚買沒折扣')
       }
+
+      if (isFound(textMessage, ['rm -rf', 'sudo kill'])) {
+        bot.leaveGroup(groupId.lineage)
+      }
+
     } else if (event.message.type === 'image') {
       bot.push(groupId.lineage, replyMessage.lineage.image[Math.floor(Math.random() * replyMessage.lineage.image.length)])
     }
@@ -74,14 +88,11 @@ router.post('/webhook', linebotParser)
 /**
  * Function
 **/
-function contains (target, pattern) {
-  let contained = false
-  pattern.forEach(function (word) {
-    if (target.includes(word)) {
-      contained = true
-    }
+function isFound (targetString, patternArray) {
+  return patternArray.some( word => {
+    let regex = new RegExp(word, 'gi')
+    return targetString.match(regex)
   })
-  return contained
 }
 
 module.exports = router
