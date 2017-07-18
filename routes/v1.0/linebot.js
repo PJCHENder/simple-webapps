@@ -17,11 +17,12 @@ const userId = {
 
 const replyMessage = {
   wavbo: {
-    text: ['安安', '我在這', '不要怕，有我在', '提供免費代客刻印', '提供免費代客衝裝', '10+1 抽下去了拉']
+    text: ['安安', '我在這', '不要怕，有我在', '提供免費代客刻印服務', '提供免費代客衝裝服務', '10+1 交給我']
   },
   lineage: {
     image: ['唉唷，不錯嘛～', '阿不就好棒棒', '下次會更好', '非洲人了你', '這個小白臉'],
-    text: ['放開那個女孩', '歡迎非洲族長', '記得補防曬', 'PK阿！', '沒人舉手是吧，那我點名了']
+    name: ['放開那個女孩', '歡迎非洲族長', '記得補防曬', 'PK阿！', '沒人舉手是吧，那我點名了'],
+    pleasure: ['10+1 抽下去就對了！', '買了～買了～', '早買早享受，晚買沒折扣', '琳娜敗下去吧！']
   }
 }
 
@@ -67,7 +68,7 @@ bot.on('message', function (event) {
         })
       } else {
         if (isFound(textMessage, ['琳娜', '一邊一國', '霜刃'])) {
-          bot.push(groupId.lineage, replyMessage.lineage.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
+          bot.push(groupId.lineage, replyMessage.lineage.name[Math.floor(Math.random() * replyMessage.lineage.name.length)])
         }
 
         if (isFound(textMessage, ['wavbo', '微寶'])) {
@@ -75,7 +76,7 @@ bot.on('message', function (event) {
         }
         
         if (isFound(textMessage, ['紅寶', '藍鑽', '鑽石'])) {
-          bot.push(groupId.lineage, '10+1 抽下去了拉')
+          bot.push(groupId.lineage, replyMessage.lineage.pleasure[Math.floor(Math.random() * replyMessage.lineage.pleasure.length)])
         }
 
         if (isFound(textMessage, ['rm -rf', 'sudo kill'])) {
