@@ -28,10 +28,17 @@ const replyMessage = {
 /**
  * cron task
  */
-let task = cron.schedule('50 1,5,9,13,17,21 * * *', function () {
+let taskLineage = cron.schedule('50 1,5,9,13,17,21 * * *', function () {
   bot.push(groupId.lineage, '打王的時間到了')
   console.log('running a task', new Date())
 }, true)
+
+let taskLine = cron.schedule('0 4 * * *', function () {
+  bot.push(groupId.lineage, '考驗人品的時間來了：https://store.line.me/C/dailychance/')
+}, true)
+
+taskLine.start()
+taskLineage.start()
 
 /**
  * Line Bot Listener
@@ -46,14 +53,14 @@ bot.on('message', function (event) {
 
       if (isFound(textMessage, ['微寶覺醒', '微寶起床', 'wavbo run start'])) {
          event.reply('收到').then(function (data) {
-          task.start()
+          taskLineage.start()
           bot.push(groupId.lineage, '微寶出任務')
         }).catch(function (error) {
           console.error('error', error)
         })
       } else if (isFound(textMessage, ['微寶睡覺', 'wavbo run sleep', 'wavbo run stop'])) {
         event.reply('收到').then(function (data) {
-          task.stop()
+          taskLineage.stop()
           bot.push(groupId.lineage, '微寶結束任務，大家晚安')
         }).catch(function (error) {
           console.error('error', error)
