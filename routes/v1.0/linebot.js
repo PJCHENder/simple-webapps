@@ -17,7 +17,7 @@ const userId = {
 
 const replyMessage = {
   wavbo: {
-    text: ['安安', '我在這', '不要怕，有我在', '不怕別人阻擋，只怕自己投降']
+    text: ['安安', '我在這', '不要怕，有我在']
   },
   lineage: {
     image: ['唉唷，不錯嘛～', '阿不就好棒棒', '下次會更好', '非洲人了你', '這個小白臉'],
@@ -58,24 +58,23 @@ bot.on('message', function (event) {
         }).catch(function (error) {
           console.error('error', error)
         })
-      }
-      
-      if (isFound(textMessage, ['琳娜', '一邊一國', '霜刃'])) {
-        bot.push(groupId.lineage, replyMessage.lineage.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
-      }
+      } else {
+        if (isFound(textMessage, ['琳娜', '一邊一國', '霜刃'])) {
+          bot.push(groupId.lineage, replyMessage.lineage.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
+        }
 
-      if (isFound(textMessage, ['wavbo', '微寶'])) {
-        bot.push(groupId.lineage, replyMessage.wavbo.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
-      }
-      
-      if (isFound(textMessage, ['紅寶', '藍鑽', '鑽石'])) {
-        bot.push(groupId.lineage, '早買早享受，晚買沒折扣')
-      }
+        if (isFound(textMessage, ['wavbo', '微寶'])) {
+          bot.push(groupId.lineage, replyMessage.wavbo.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
+        }
+        
+        if (isFound(textMessage, ['紅寶', '藍鑽', '鑽石'])) {
+          bot.push(groupId.lineage, '琳娜快敗喔～')
+        }
 
-      if (isFound(textMessage, ['rm -rf', 'sudo kill'])) {
-        bot.leaveGroup(groupId.lineage)
+        if (isFound(textMessage, ['rm -rf', 'sudo kill'])) {
+          bot.leaveGroup(groupId.lineage)
+        }
       }
-
     } else if (event.message.type === 'image') {
       bot.push(groupId.lineage, replyMessage.lineage.image[Math.floor(Math.random() * replyMessage.lineage.image.length)])
     }
