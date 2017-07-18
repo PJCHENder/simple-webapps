@@ -68,23 +68,23 @@ bot.on('message', function (event) {
         })
       } else {
         if (isFound(textMessage, ['琳娜', '一邊一國', '霜刃'])) {
-          bot.push(groupId.lineage, replyMessage.lineage.name[Math.floor(Math.random() * replyMessage.lineage.name.length)])
+          bot.push(groupId.lineage, getSample(replyMessage.lineage.name))
         }
 
         if (isFound(textMessage, ['wavbo', '微寶'])) {
-          bot.push(groupId.lineage, replyMessage.wavbo.text[Math.floor(Math.random() * replyMessage.lineage.text.length)])
+          bot.push(groupId.lineage, getSample(replyMessage.wavbo.text))
         }
         
         if (isFound(textMessage, ['紅寶', '藍鑽', '鑽石'])) {
-          bot.push(groupId.lineage, replyMessage.lineage.pleasure[Math.floor(Math.random() * replyMessage.lineage.pleasure.length)])
+          bot.push(groupId.lineage, getSample(replyMessage.lineage.pleasure))
         }
 
-        if (isFound(textMessage, ['rm -rf', 'sudo kill'])) {
+        if (isFound(textMessage, ['rm -rf', 'sudo kill', 'self.destroy'])) {
           bot.leaveGroup(groupId.lineage)
         }
       }
     } else if (event.message.type === 'image') {
-      bot.push(groupId.lineage, replyMessage.lineage.image[Math.floor(Math.random() * replyMessage.lineage.image.length)])
+      bot.push(groupId.lineage, getSample(replyMessage.lineage.image))
     }
   }
 })
@@ -100,6 +100,10 @@ function isFound (targetString, patternArray) {
     let regex = new RegExp(word, 'gi')
     return targetString.match(regex)
   })
+}
+
+function getSample (arr) {
+  return arr[Math.floor(Math.random() * arr.length)]
 }
 
 module.exports = router
