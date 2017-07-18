@@ -17,7 +17,7 @@ const userId = {
 
 const replyMessage = {
   wavbo: {
-    text: ['安安', '我在這', '不要怕，有我在']
+    text: ['安安', '我在這', '不要怕，有我在', '提供免費代客刻印', '提供免費代客衝裝', '10+1 抽下去了拉']
   },
   lineage: {
     image: ['唉唷，不錯嘛～', '阿不就好棒棒', '下次會更好', '非洲人了你', '這個小白臉'],
@@ -68,7 +68,7 @@ bot.on('message', function (event) {
         }
         
         if (isFound(textMessage, ['紅寶', '藍鑽', '鑽石'])) {
-          bot.push(groupId.lineage, '琳娜快敗喔～')
+          bot.push(groupId.lineage, '10+1 抽下去了拉')
         }
 
         if (isFound(textMessage, ['rm -rf', 'sudo kill'])) {
